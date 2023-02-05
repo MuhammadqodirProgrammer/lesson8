@@ -1,0 +1,81 @@
+{
+  "posts": [
+    {
+      "title": "uxlash",
+      "body": "code yozish",
+      "autor": "ALI VALIYEV",
+      "id": 5
+    },
+    {
+      "title": "JS kutubxonalarini organish",
+      "body": "REACT.JS ,ANGULAR",
+      "autor": "ALI VALIYEV",
+      "id": 6
+    }
+  ],
+  "users": [
+    {
+      "email": "eve.holt@reqres.in",
+      "password": "$2a$10$V8U8dZPgL8oh7loebXePluXrBnmuv8UJTBibSSbQRz09/MOUAXl1G",
+      "first_name": "Muhammadqodir",
+      "last_name": "Komilov",
+      "id": 1
+    },
+    {
+      "email": "ali@gmail.com",
+      "password": "$2a$10$CqU23iN7k.xhYoGpxmfrb.1EAImDEqt8jMpg8GrA4Y8nYMv0JqtXi",
+      "first_name": "Ali",
+      "last_name": "Komilov",
+      "id": 2
+    },
+    {
+      "email": "vali@gmail.com",
+      "password": "$2a$10$q0N0m9h770mP6T6yLvLXouKwpPRFnEz6EUAi0Pvp0NODNjfT2ighi",
+      "first_name": "Vali",
+      "last_name": "Aliyev",
+      "id": 3
+    },
+    {
+      "email": "a@gmail.com",
+      "password": "$2a$10$zMP7NVFDZjDG0iy.qgzPheAO4tYJXQKoqNDwVVac6p4xiwwCcgEM2",
+      "first_name": "a",
+      "last_name": "b",
+      "id": 4
+    },
+    {
+      "email": "demo@gmail.com",
+      "password": "$2a$10$oHgJ6k7qvzGwk1rg5l5auev9kKSLgHeEnzMw9q9G71eYgp1uQkehu",
+      "first_name": "demo",
+      "last_name": "g",
+      "id": 5
+    },
+    {
+      "email": "abd@gmail.com",
+      "password": "$2a$10$7iyFnR82l8gGtN8jL39ME.OEu20M4bMZo1I57Ad75TZbzHhcncIf.",
+      "first_name": "abd",
+      "last_name": "cde",
+      "id": 6
+    },
+    {
+      "email": "ali2@gmail.com",
+      "password": "$2a$10$nV/1inL1CfXLK1TjfAxw1uezMmvJjRdtmY6bj4nD.qOqaK2tBBBoS",
+      "first_name": "ali",
+      "last_name": "val",
+      "id": 7
+    },
+    {
+      "email": "nappi@gmail.com",
+      "password": "$2a$10$eHpLbsgNb5QaQ.tis.pbze8tWM44QQz3/VsaneFnvARKoyO.nqtuq",
+      "first_name": "nappi",
+      "last_name": "aliyev",
+      "id": 8
+    },
+    {
+      "email": "ALI@gmail.com",
+      "password": "$2a$10$zCFRF9KV7t.Fn0Ol1Q1IBevwHkAdBZWrNEZCvtezzvycPNkxhnl66",
+      "first_name": "ALI",
+      "last_name": "VALIYEV",
+      "id": 9
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+
+.card{
+    min-width: 250px;
+    min-height: 150px;
+}
+.posts-box{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.btns-box{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
