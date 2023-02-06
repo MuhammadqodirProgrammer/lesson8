@@ -11,6 +11,12 @@
       "body": "REACT.JS ,ANGULAR",
       "autor": "ALI VALIYEV",
       "id": 6
+    },
+    {
+      "title": "Ertalab yugurish",
+      "body": "har kuni 500 m dan oshirish",
+      "autor": "Ahmad Komilov",
+      "id": 7
     }
   ],
   "users": [
@@ -76,6 +82,13 @@
       "first_name": "ALI",
       "last_name": "VALIYEV",
       "id": 9
+    },
+    {
+      "email": "ahmad@gmail.com",
+      "password": "$2a$10$j5FffXg5VrZGzfowmiXQluALNM22r313Arykd6QLPCBscUr0IvJTG",
+      "first_name": "Ahmad",
+      "last_name": "Komilov",
+      "id": 10
     }
   ]
 }
