@@ -1,3 +1,6 @@
+.login-box{
+    width: 50% !important;
+        } 
 
 @media screen and (max-width:768px) {
     .login-box{

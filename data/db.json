@@ -89,6 +89,13 @@
       "first_name": "Ahmad",
       "last_name": "Komilov",
       "id": 10
+    },
+    {
+      "email": "mahmud@gmail.com",
+      "password": "$2a$10$nN1gtal0WvUQ.6OR2ifJSuvanQQODbIInCkVBj7kE23YKqRvJ0YL2",
+      "first_name": "Mahmud",
+      "last_name": "Obidov",
+      "id": 11
     }
   ]
 }
