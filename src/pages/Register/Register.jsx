@@ -1,70 +1,141 @@
 import axios from "axios";
-import React, { useContext, useRef } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { UserContext } from "../../context/UserContex";
-import {useNavigate} from "react-router-dom"
-import "./register.css"
-const Register = () => {
-  const {setToken} = useContext(AuthContext);
-  const {setUser} = useContext(UserContext);
-const navigate = useNavigate()
+import { useFormik } from "formik";
 
-  const emailRef = useRef();
-  const FirstNameRef = useRef();
-  const LastNameRef = useRef();
-  const passwordRef = useRef();
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    axios
-      .post("http://localhost:7777/register", {
-        first_name:FirstNameRef.current.value,
-        last_name:LastNameRef.current.value,
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
-      })
-      .then((data) => {
-  if(data.status === 201){
-    setToken(data.data.accessToken)
-    setUser(data.data.user)
-    navigate('/')
-  };
-      })
-      .catch((err = console.log(err)));
-  
-  };
+import {
+  RegisterTitle,
+  RegisterWrapper,
+  RegisterForm,
+  RegisterInput,
+  RegisterLabel,
+  RegisterBlock,
+  RegisterButton,
+  RegisterError,
+} from "./register.style";
+const Register = () => {
+  const formik = useFormik({
+    initialValues: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
+    },
+    onSubmit: (values) => {
+      console.log(values);
+      // axios.post('http://localhost:7777/register', values)
+      axios
+        .post("http://localhost:7777/register", values)
+        .then((data) => {
+          console.log(data);
+          // if (data.status === 201) {
+          //   setToken(data.data.accessToken);
+          //   setUser(data.data.user);
+          //   navigate("/");
+          // }
+        })
+        .catch((err => console.log(err)));
+    },
+    validate: (values) => {
+      const errors = {
+        first_name: "",
+        last_name: "",
+        email: "",
+        password: "",
+      };
+      if (!values.first_name) {
+        errors.first_name = "Required";
+      }
+      if (!values.last_name) {
+        errors.last_name = "Required";
+      }
+      if (!values.email) {
+        errors.email = "Required";
+      }
+      // else if(!/^[\w-\.]+@([\M-]+\.)+[.\w-]{2,4}$/1.test(values.email)){
+      //   errors.email = "Invalite email format"
+      // }
+      if (!values.password) {
+        errors.password = "Required";
+      }
+      return errors;
+    },
+  });
+console.log(formik.values);
   return (
-    <div className=" register-box mx-auto my-5 p-5 shadow">
-      <h1 className="text-center my-3">Register</h1>
-      <form onSubmit={handleSubmit}>
-      <input
-          ref={FirstNameRef}
-          className="form-control my-3"
-          type="text"
-          placeholder="First Name"
-        />
-         <input
-          ref={LastNameRef}
-          className="form-control my-3"
-          type="text"
-          placeholder="Last Name"
-        />
-        <input
-          ref={emailRef}
-          className="form-control my-3"
-          type="email"
-          placeholder="Email"
-        />
-        <input
-          ref={passwordRef}
-          className="form-control my-3"
-          type="password"
-          placeholder="Password"
-        />
-        <button className="btn btn-primary " type="submit">
-          SEND
-        </button>
-      </form>
-    </div>
+    <RegisterWrapper>
+      <RegisterTitle>Register</RegisterTitle>
+      <RegisterForm onSubmit={formik.handleSubmit}>
+        <RegisterBlock>
+          <RegisterLabel htmlFor="first_name">First Name</RegisterLabel>
+          <RegisterInput
+            placeholder="First_name..."
+            type="text"
+            name="first_name"
+            id="first_name"
+            value={formik.values.first_name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.first_name && formik.errors.first_name ? (
+            <RegisterError>{formik.errors.first_name}</RegisterError>
+          ) : (
+            ""
+          )}
+        </RegisterBlock>
+        <RegisterBlock>
+          <RegisterLabel htmlFor="last_name">Last Name</RegisterLabel>
+          <RegisterInput
+            placeholder="Last Name..."
+            type="text"
+            name="last_name"
+            id="last_name"
+            value={formik.values.last_name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.last_name && formik.errors.last_name ? (
+            <RegisterError>{formik.errors.last_name}</RegisterError>
+          ) : (
+            ""
+          )}
+        </RegisterBlock>
+        <RegisterBlock>
+          <RegisterLabel htmlFor="email">Email</RegisterLabel>
+          <RegisterInput
+            placeholder="Email..."
+            type="email"
+            name="email"
+            id="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.email && formik.errors.email ? (
+            <RegisterError>{formik.errors.email}</RegisterError>
+          ) : (
+            ""
+          )}
+        </RegisterBlock>
+        <RegisterBlock>
+          <RegisterLabel htmlFor="password">Password</RegisterLabel>
+          <RegisterInput
+            placeholder="Password..."
+            type="password"
+            name="password"
+            id="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.password && formik.errors.password ? (
+            <RegisterError>{formik.errors.password}</RegisterError>
+          ) : (
+            ""
+          )}
+        </RegisterBlock>
+
+        <RegisterButton type="submit">SEND</RegisterButton>
+      </RegisterForm>
+    </RegisterWrapper>
   );
 };
 
