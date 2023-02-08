@@ -1,4 +1,9 @@
 import { useFormik } from "formik";
+import * as Yup from "yup";
+import { AuthContext } from "../../context/AuthContext";
+import { UserContext } from "../../context/UserContex";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import {
   LoginTitle,
   LoginWrapper,
@@ -9,7 +14,11 @@ import {
   LoginButton,
   LoginError,
 } from "./login.style";
- const Login = () => {
+const Login = () => {
+  const navigate = useNavigate();
+  const { setToken } = useContext(AuthContext);
+  const { setUser } = useContext(UserContext);
+
   const formik = useFormik({
     initialValues: {
       first_name: "Ali",
@@ -19,29 +28,49 @@ import {
     },
     onSubmit: (values) => {
       console.log(values);
+      axios
+        .post(" http://localhost:7777/login", values)
+        .then((data) => {
+          if(data.status === 200 ){
+            setToken(data.data.accessToken)
+            setUser(data.data.user)
+            navigate('/')
+          }
+        })
+        .catch((err) => console.log(err));
     },
-    validate: (values) => {
-      const errors = {
-        email: "",
-        password: "",
-      };
+    // validate: (values) => {
+    //   const errors = {
+    //     email: "",
+    //     password: "",
+    //   };
 
-      if (!values.email) {
-        errors.email = "Required";
-      }
-      // else if(!/^[\w-\.]+@([\M-]+\.)+[.\w-]{2,4}$/1.test(values.email)){
-      //   errors.email = "Invalite email format"
-      // }
-      if (!values.password) {
-        errors.password = "Required";
-      }
-      return errors;
-    },
+    //   if (!values.email) {
+    //     errors.email = "Required";
+    //   }else if(!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i.test(values.email)){
+    //     errors.email = "Invalite email format"
+    //   }
+    //   if (!values.password) {
+    //     errors.password = "Required";
+    //   }
+    //   return errors;
+    // },
+    validationSchema: Yup.object({
+      first_name: Yup.string().required("Requaird !!!"),
+      last_name: Yup.string().required("Requaird !!!"),
+      email: Yup.string()
+        .email("Invalit email format")
+        .required("Requaird !!!"),
+      password: Yup.string()
+        .min(3, "Pasword must be longer characsters ")
+        .max(8, "Password must be last 8 characster")
+        .required("Requaird !!!"),
+    }),
   });
   return (
     <LoginWrapper>
       <LoginTitle>Login</LoginTitle>
-      <LoginForm>
+      <LoginForm onSubmit={formik.handleSubmit} >
         <LoginBlock>
           <LoginLabel htmlFor="email">Email</LoginLabel>
           <LoginInput
@@ -82,4 +111,4 @@ import {
     </LoginWrapper>
   );
 };
-export default Login
+export default Login;

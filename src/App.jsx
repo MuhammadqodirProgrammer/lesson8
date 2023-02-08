@@ -10,7 +10,7 @@ const {token} = useContext(AuthContext)
 
 if(token){
   return <>
-  <globalStyle />
+  <GlobalStyle />
      <Private />
   </>
 }

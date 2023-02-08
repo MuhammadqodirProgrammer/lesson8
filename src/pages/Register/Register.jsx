@@ -1,6 +1,10 @@
 import axios from "axios";
 import { useFormik } from "formik";
-
+import * as Yup from "yup"
+import {AuthContext} from "../../context/AuthContext"
+import {UserContext} from "../../context/UserContex"
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   RegisterTitle,
   RegisterWrapper,
@@ -12,6 +16,10 @@ import {
   RegisterError,
 } from "./register.style";
 const Register = () => {
+
+  const {setToken} = useContext(AuthContext);
+  const {setUser} = useContext(UserContext);
+const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
       first_name: "",
@@ -21,45 +29,48 @@ const Register = () => {
     },
     onSubmit: (values) => {
       console.log(values);
-      // axios.post('http://localhost:7777/register', values)
       axios
-        .post("http://localhost:7777/register", values)
+        .post(" http://localhost:7777/register", values)
         .then((data) => {
-          console.log(data);
-          // if (data.status === 201) {
-          //   setToken(data.data.accessToken);
-          //   setUser(data.data.user);
-          //   navigate("/");
-          // }
+          if(data.status === 201 ){
+            setToken(data.data.accessToken)
+            setUser(data.data.user)
+            navigate('/')
+          }
         })
-        .catch((err => console.log(err)));
+        .catch((err) => console.log(err));
     },
-    validate: (values) => {
-      const errors = {
-        first_name: "",
-        last_name: "",
-        email: "",
-        password: "",
-      };
-      if (!values.first_name) {
-        errors.first_name = "Required";
-      }
-      if (!values.last_name) {
-        errors.last_name = "Required";
-      }
-      if (!values.email) {
-        errors.email = "Required";
-      }
-      // else if(!/^[\w-\.]+@([\M-]+\.)+[.\w-]{2,4}$/1.test(values.email)){
-      //   errors.email = "Invalite email format"
-      // }
-      if (!values.password) {
-        errors.password = "Required";
-      }
-      return errors;
-    },
+    // validate: (values) => {
+    //   const errors = {
+    //     first_name: "",
+    //     last_name: "",
+    //     email: "",
+    //     password: "",
+    //   };
+    //   if (!values.first_name) {
+    //     errors.first_name = "Required";
+    //   }
+    //   if (!values.last_name) {
+    //     errors.last_name = "Required";
+    //   }
+    //   if (!values.email) {
+    //     errors.email = "Required";
+    //   } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i.test(values.email)) {
+    //     errors.email = "Invalite email format";
+    //   }
+    //   if (!values.password) {
+    //     errors.password = "Required";
+    //   }
+    //   return errors;
+    // },
+    validationSchema : Yup.object({
+      first_name: Yup.string().required('Requaird !!!'),
+      last_name: Yup.string().required('Requaird !!!'),
+      email: Yup.string().email("Invalit email format").required('Requaird !!!'),
+      password: Yup.string().min(3 ,'Pasword must be longer characsters ').max(8, 'Password must be last 8 characster').required('Requaird !!!'),
+    })
   });
-console.log(formik.values);
+  // console.log(formik.values);
   return (
     <RegisterWrapper>
       <RegisterTitle>Register</RegisterTitle>
@@ -132,7 +143,6 @@ console.log(formik.values);
             ""
           )}
         </RegisterBlock>
-
         <RegisterButton type="submit">SEND</RegisterButton>
       </RegisterForm>
     </RegisterWrapper>
